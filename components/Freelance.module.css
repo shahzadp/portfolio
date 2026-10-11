@@ -1,0 +1,142 @@
+/* Freelance — a single bordered panel on the cream ground, using the
+   mockup's card treatment but with the rust accent lifted for the CTA. */
+.section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 88px;
+}
+
+.card {
+  padding: clamp(1.75rem, 4vw, 3rem);
+  background: var(--card);
+  border: 1px solid var(--rule);
+  transition: border-color var(--t-med) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--accent);
+}
+
+.head {
+  max-width: 60ch;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  margin-bottom: 8px;
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.blurb {
+  margin: 12px 0 0;
+  font-size: 18px;
+  color: var(--ink-soft);
+}
+
+.services {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Tag styling, matching the project-card tags in the mockup */
+.service {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  border: 1px solid var(--rule);
+  padding: 3px 9px;
+  background: transparent;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.fiverr,
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  min-height: 44px;
+  border: 1.5px solid;
+  transition: background var(--t-med) var(--ease), color var(--t-med) var(--ease),
+    border-color var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+}
+
+.fiverr {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.fiverr:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--on-accent);
+  transform: translateY(-2px);
+}
+
+.ghost {
+  background: transparent;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.ghost:hover {
+  border-color: var(--accent-hover);
+  color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.arrow {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.handle {
+  margin: 24px 0 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-bottom: 60px;
+  }
+  .heading {
+    font-size: 36px;
+  }
+  .fiverr,
+  .ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}

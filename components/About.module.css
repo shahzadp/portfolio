@@ -1,0 +1,74 @@
+/* About — mockup: #E8DDC3 band, 1px tan rules top & bottom,
+   padding 72px 40px, flex gap 64px. Left column flex 1 1 320px,
+   right grid auto-fit minmax(180px,1fr) gap 32px. */
+.section {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--about-bg);
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 72px var(--gutter);
+  display: flex;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+
+.story {
+  flex: 1 1 320px;
+}
+
+.heading {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.para {
+  margin: 0 0 14px;
+  font-size: 17px;
+  color: var(--ink-soft);
+}
+
+.para:last-child {
+  margin-bottom: 0;
+}
+
+.panel {
+  flex: 1 1 420px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: 32px;
+  align-content: start;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  margin-bottom: 8px;
+}
+
+.items {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 16px;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    padding: 56px var(--gutter);
+    gap: 40px;
+  }
+  .heading {
+    font-size: 32px;
+  }
+}

@@ -1,0 +1,55 @@
+/* Header — replicates the mockup's header block:
+   max-width 1160, padding 28px 40px, space-between, bottom rule. */
+.header {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 28px var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.nav a:hover {
+  color: var(--accent-hover);
+}
+
+/* Nav links are text-only, so their hit area is just the line box (~21px) —
+   too small to tap reliably on a phone. Pad the target without changing how
+   the header looks at desktop sizes. */
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 2px;
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 20px var(--gutter);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav {
+    gap: 8px 20px;
+    font-size: 13px;
+  }
+}

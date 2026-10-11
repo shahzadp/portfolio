@@ -1,0 +1,11 @@
+# Normalise line endings so the Linux CI build matches what was tested locally.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.woff2 binary
+*.ico binary
+
+# SQLite is a binary file; never let git try to normalise it.
+*.db binary

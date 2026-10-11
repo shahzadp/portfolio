@@ -1,0 +1,134 @@
+/* Projects — mockup: padding 88px 40px; header is a flex row
+   (space-between, align-end, wrap, gap 16, margin-bottom 40);
+   grid auto-fit minmax(300px,1fr) gap 24px. */
+.section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 88px var(--gutter);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  margin-bottom: 8px;
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.sub {
+  margin: 10px 0 0;
+  max-width: 58ch;
+  font-size: 17px;
+  color: var(--ink-soft);
+}
+
+.ghLink {
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  /* min() guard: at 320px the 40px gutters leave only 240px of content, so a
+     flat 300px minimum track would overflow. Never exceed the container. */
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 24px;
+}
+
+/* Card — mockup: #F8F2E3, 1px #CDBF9F, padding 28px, gap 14px,
+   hover border #A9441F */
+.card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+  color: var(--ink);
+  transition: border-color var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  color: var(--ink);
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  border: 1px solid var(--rule);
+  padding: 2px 8px;
+}
+
+.cardTitle {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.cardBlurb {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 16px;
+  flex: 1;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+/* Tag — mockup: IBM Plex Mono 12px, #5A4F3F, 1px #CDBF9F, padding 3px 9px */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  border: 1px solid var(--rule);
+  padding: 3px 9px;
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 60px var(--gutter);
+  }
+  .heading {
+    font-size: 36px;
+  }
+  .cardTitle {
+    font-size: 24px;
+  }
+}

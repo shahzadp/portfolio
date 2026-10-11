@@ -1,0 +1,129 @@
+/* Education — same section rhythm as Projects, laid out as a timeline.
+   Reuses the mockup's cream ground, tan rules and Cormorant headings. */
+.section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 88px var(--gutter);
+}
+
+.head {
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  margin-bottom: 8px;
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0;
+  max-width: 760px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 20px;
+}
+
+/* Timeline rail */
+.marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.marker::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: -4px;
+  left: 50%;
+  width: 1px;
+  background: var(--rule);
+  transform: translateX(-0.5px);
+}
+
+.item:last-child .marker::before {
+  display: none;
+}
+
+.dot {
+  position: relative;
+  z-index: 1;
+  width: 11px;
+  height: 11px;
+  margin-top: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--cream);
+}
+
+.body {
+  padding-bottom: 34px;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.qualification {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent-hover);
+  white-space: nowrap;
+}
+
+.institution {
+  margin: 4px 0 0;
+  font-size: 17px;
+  color: var(--ink-soft);
+}
+
+.sep {
+  color: var(--rule);
+}
+
+.note {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 60px var(--gutter);
+  }
+  .heading {
+    font-size: 36px;
+  }
+  .qualification {
+    font-size: 24px;
+  }
+}

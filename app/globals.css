@@ -1,0 +1,118 @@
+/* ==========================================================================
+   Portfolio — design system
+   Values replicated from the supplied design mockup (Portfolio - Home).
+   Palette: cream ground, tan rules, rust accent.
+   ========================================================================== */
+
+:root {
+  /* ---- Colour (from the mockup) ---- */
+  --cream: #efe6d2;
+  --card: #f8f2e3;
+  --page-light: #fbf7ec;
+  --about-bg: #e8ddc3;
+  --portrait-bg: #e2d5b8;
+
+  --ink: #2b2620; /* header/footer ground + body text */
+  --ink-soft: #4a4033; /* muted body copy */
+  --ink-faint: #5a4f3f; /* tags, meta */
+
+  --accent: #a9441f; /* rust — buttons, hover borders */
+  --accent-hover: #8f3516; /* rust-deep — hover fills */
+
+  --rule: #cdbf9f; /* 1px borders + dividers */
+  --rule-soft: #d9cdb2;
+
+  --cream-text: #efe6d2; /* text on dark ground */
+  --tan-text: #cdbf9f; /* links on dark ground */
+  --on-accent: #fbf7ec; /* button label */
+
+  /* ---- Type ---- */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+
+  /* ---- Layout ---- */
+  --container: 1160px;
+  --gutter: 40px;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-med: 240ms;
+}
+
+/* ==========================================================================
+   Reset / base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color var(--t-med) var(--ease);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

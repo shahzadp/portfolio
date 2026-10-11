@@ -1,0 +1,117 @@
+/* Contact — mockup footer: #2B2620 ground, #EFE6D2 text,
+   padding 72px 40px, space-between, align-center, wrap, gap 32px. */
+.footer {
+  background: var(--ink);
+  color: var(--cream-text);
+  padding: 72px 0;
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+/* Small green WhatsApp icon sitting above the contact block */
+.waBadge {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #0b3d1f;
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
+  transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+}
+
+.waBadge:hover {
+  transform: translateY(-3px);
+  color: #0b3d1f;
+  box-shadow: 0 0 0 7px rgba(37, 211, 102, 0.18);
+}
+
+.waIcon {
+  width: 26px;
+  height: 26px;
+}
+
+.intro {
+  flex: 1 1 320px;
+}
+
+.heading {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 600;
+}
+
+.blurb {
+  margin: 0 0 10px;
+  color: var(--tan-text);
+  font-size: 17px;
+}
+
+.links {
+  color: var(--tan-text);
+  font-size: 17px;
+  flex-wrap: wrap;
+}
+
+.links a {
+  color: var(--tan-text);
+}
+
+.links a:hover {
+  color: var(--cream-text);
+}
+
+.sep {
+  color: var(--rule);
+}
+
+/* Primary WhatsApp button */
+.waBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  min-height: 44px;
+  background: #25d366;
+  color: #0b3d1f;
+  border: 1.5px solid #25d366;
+  cursor: pointer;
+  transition: background var(--t-med) var(--ease), border-color var(--t-med) var(--ease),
+    transform var(--t-med) var(--ease);
+}
+
+.waBtn:hover {
+  background: #1fbb59;
+  border-color: #1fbb59;
+  color: #0b3d1f;
+  transform: translateY(-2px);
+}
+
+.waBtnIcon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 640px) {
+  .heading {
+    font-size: 34px;
+  }
+  .footer {
+    padding: 56px 0;
+  }
+}

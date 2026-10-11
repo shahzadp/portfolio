@@ -1,0 +1,51 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# cv preview scratch
+/.cv-preview/
+
+# production
+build/
+dist/
+
+# misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*.local
+.env
+
+# typescript
+*.tsbuildinfo
+
+# generated content module (rebuilt from SQLite by `npm run db:generate`).
+# content/portfolio.db IS committed: the build reads it.
+content/site.generated.ts
+
+# vercel
+.vercel
+
+# rust (apps/api, separate repo)
+target/
