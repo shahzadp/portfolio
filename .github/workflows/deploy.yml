@@ -24,7 +24,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # 24 is the floor for `node:sqlite` (used by the db scripts) without
+          # an experimental flag.
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
