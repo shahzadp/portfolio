@@ -40,7 +40,7 @@ export const site = {
   location: "Lahore, Pakistan",
   timezone: "PKT · UTC+5",
   portrait: "/portrait.jpg",
-  url: "https://shahzadp.github.io/sikander.github.io/",
+  url: "https://shahzadp.github.io/portfolio/",
   github: "https://github.com/shahzadp",
   githubHandle: "shahzadp",
 
