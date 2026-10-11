@@ -107,6 +107,9 @@ function emit(value, indent = 0) {
   if (typeof value === "string") {
     if (value.length <= 90 && !value.includes("\n")) return q(value);
     // Split long prose into chunks so the generated file stays readable.
+    // Each chunk is trimmed, so the *continuation* carries the leading space:
+    // trimming the chunk that ends a line would silently join two words
+    // together in the rendered output.
     const words = value.split(" ");
     const lines = [];
     let cur = "";
@@ -119,7 +122,14 @@ function emit(value, indent = 0) {
       }
     }
     if (cur) lines.push(cur);
-    return lines.map((l, i) => (i === lines.length - 1 ? q(l) : `${q(l)} +\n${pad}    `)).join("");
+    return lines
+      .map((l, i) => {
+        // Continuation chunks carry the leading space that trimming removed
+        // from the end of the chunk before them. The first chunk gets none.
+        const chunk = (i > 0 ? " " : "") + l;
+        return i === lines.length - 1 ? q(chunk) : `${q(chunk)} +\n${pad}    `;
+      })
+      .join("");
   }
   if (Array.isArray(value)) {
     if (!value.length) return "[]";
