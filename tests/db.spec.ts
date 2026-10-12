@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import { DatabaseSync } from "node:sqlite";
 import { existsSync, statSync, readFileSync } from "node:fs";
 import { join } from "node:path";

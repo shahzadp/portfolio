@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import { horizontalOverflow, isTouchDevice } from "./helpers";
 
 /** Extra widths beyond the configured device matrix. */

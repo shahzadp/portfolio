@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, ANALYTICS_HOSTS } from "./fixtures";
 import { trackErrors, expectNoOverflow } from "./helpers";
 
 test.describe("page loads", () => {
@@ -106,12 +106,22 @@ test.describe("page loads", () => {
 
   test("no broken images or failed requests", async ({ page }) => {
     const failed: string[] = [];
+    const failedRequests: string[] = [];
+
     page.on("response", (r) => {
+      // Analytics is stubbed out by the fixture, so a failure there is ours.
+      if (ANALYTICS_HOSTS.some((h) => r.url().includes(h))) return;
       if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`);
     });
+    page.on("requestfailed", (r) => {
+      if (ANALYTICS_HOSTS.some((h) => r.url().includes(h))) return;
+      failedRequests.push(`${r.url()} (${r.failure()?.errorText})`);
+    });
+
     await page.goto("/", { waitUntil: "networkidle" });
 
-    expect(failed, `failed requests:\n${failed.join("\n")}`).toEqual([]);
+    expect(failed, `failed responses:\n${failed.join("\n")}`).toEqual([]);
+    expect(failedRequests, `failed requests:\n${failedRequests.join("\n")}`).toEqual([]);
 
     const broken = await page.evaluate(() =>
       [...document.querySelectorAll("img")]

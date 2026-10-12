@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Cormorant_Garamond, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site.generated";
@@ -51,7 +52,19 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${sourceSans.variable} ${plexMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+
+        {/* GoatCounter: cookie-free, no personal data, no consent banner
+            needed under GDPR for a site this size. Loaded after interactive
+            so it never competes with first paint. */}
+        <Script
+          id="goatcounter"
+          src="https://gc.zgo.at/count.js"
+          data-goatcounter="https://sikander.goatcounter.com/count"
+          strategy="afterInteractive"
+        />
+      </body>
     </html>
   );
 }

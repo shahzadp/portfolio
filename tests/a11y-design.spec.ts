@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, ANALYTICS_HOSTS } from "./fixtures";
 
 /** WCAG relative luminance + contrast ratio. */
 function contrast(fg: string, bg: string): number {
@@ -189,13 +189,18 @@ test.describe("performance sanity", () => {
     expect(bytes, `transferred ${Math.round(bytes / 1024)} KB`).toBeLessThan(2_000_000);
   });
 
-  test("no render-blocking third-party requests", async ({ page }) => {
+  test("only GoatCounter is loaded from a third party", async ({ page }) => {
     const external: string[] = [];
     page.on("request", (r) => {
       const u = new URL(r.url());
-      if (!["127.0.0.1", "localhost"].includes(u.hostname)) external.push(r.url());
+      if (["127.0.0.1", "localhost"].includes(u.hostname)) return;
+      if (ANALYTICS_HOSTS.includes(u.hostname)) return;
+      external.push(u.hostname + u.pathname);
     });
     await page.goto("/", { waitUntil: "networkidle" });
-    expect(external, `third-party requests: ${external.join(", ")}`).toEqual([]);
+    expect(
+      external,
+      `unexpected third-party requests: ${external.join(", ")}`,
+    ).toEqual([]);
   });
 });
