@@ -48,7 +48,8 @@ test.describe("page loads", () => {
     const about = page.locator("#about");
     for (const v of ["English", "Urdu", "Punjabi"]) await expect(about).toContainText(v);
     for (const v of ["Next.js", "Flutter", "Capacitor", "Playwright"]) await expect(about).toContainText(v);
-    for (const v of ["Git", "Node.js + pnpm", "Neovim"]) await expect(about).toContainText(v);
+    for (const v of ["Git", "Node.js + pnpm", "Neovim", "PyTorch", "OpenCode"])
+      await expect(about).toContainText(v);
 
     // Project counts
     await expect(page.locator("#projects h3")).toHaveCount(3);

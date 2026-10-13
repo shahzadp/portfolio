@@ -80,7 +80,7 @@ export const about = {
 export const stackGroups = [
   { label: "Languages", items: ["English", "Urdu", "Punjabi"] },
   { label: "Frameworks", items: ["Next.js", "Flutter", "Capacitor", "Playwright"] },
-  { label: "Tools", items: ["Git", "Node.js + pnpm", "Neovim"] },
+  { label: "Tools", items: ["Git", "Node.js + pnpm", "Neovim", "PyTorch", "OpenCode"] },
 ];
 
 /* ==========================================================================
@@ -107,7 +107,7 @@ export const projects: Project[] = [
     stack: ["Flutter", "Dart", "Android", "WebView"],
     image: null,
     featured: true,
-    status: "building",
+    status: "live",
     repoUrl: "https://github.com/shahzadp/DoL-by-Alex",
     highlights: [
       "Second full shell migration: Cordova to Capacitor to Flutter 3.47.7",
@@ -119,7 +119,7 @@ export const projects: Project[] = [
     ],
     impact:
       "Release APK down to 34.2 MB, and arm64-only cuts that roughly in half again. Builds, " +
-      "signs and passes its own test suite; the device run is the last step outstanding.",
+      "signs, passes its own test suite and runs on a device.",
   },
   {
     id: "p2",
