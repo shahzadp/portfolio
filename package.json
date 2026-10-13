@@ -8,6 +8,7 @@
     "start": "next start",
     "preview": "node scripts/preview.mjs --port=4321",
     "preview:lan": "node scripts/preview.mjs --host=0.0.0.0 --port=4321",
+    "review": "node scripts/review-shots.mjs",
     "dev:lan": "npm run db:generate && next dev -H 0.0.0.0 -p 3000",
     "db:seed": "node scripts/db/seed.mjs",
     "db:generate": "node scripts/db/generate.mjs",

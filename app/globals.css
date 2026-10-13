@@ -35,9 +35,54 @@
   --container: 1160px;
   --gutter: 40px;
 
+  /* Vertical rhythm. Desktop is generous; a phone should not have to scroll
+     through 60px of nothing between every pair of sections. */
+  --section-y: 88px;
+
   /* ---- Motion ---- */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 160ms;
   --t-med: 240ms;
+  --t-slow: 560ms;
+  --reveal-y: 14px;
+
+  /* The availability dot breathes slowly. Slow enough to read as alive
+     rather than as an alert. */
+  --pulse: 3.4s;
+}
+
+@keyframes availability-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(76, 154, 82, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(76, 154, 82, 0.05);
+  }
+}
+
+/* The mockup's 40px gutters are right at desktop and ruinous on a phone:
+   at 390px they eat 20% of the screen, at 320px a quarter of it. Scaling the
+   gutter down is the single change that buys back the most width, and because
+   every section reads this token it fixes all of them at once. */
+@media (max-width: 900px) {
+  :root {
+    --gutter: 28px;
+    --section-y: 56px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+    --section-y: 44px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --gutter: 16px;
+  }
 }
 
 /* ==========================================================================
@@ -114,5 +159,32 @@ h3 {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Scroll reveals
+   The hidden state is scoped to .js-motion, which components/Motion.tsx adds
+   from an effect. With no JavaScript at all the class is never applied, so
+   content renders plainly instead of being stuck at opacity 0 forever.
+   ========================================================================== */
+
+.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y));
+  transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
+  /* --i is set on staggered items only; everything else falls back to 0. */
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js-motion [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }

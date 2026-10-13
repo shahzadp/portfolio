@@ -18,6 +18,9 @@ next-env.d.ts
 # cv preview scratch
 /.cv-preview/
 
+# visual review screenshots (npm run review)
+/.review/
+
 # production
 build/
 dist/

@@ -3,7 +3,7 @@
 .section {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 var(--gutter) 88px;
+  padding: 0 var(--gutter) var(--section-y);
 }
 
 .card {
@@ -129,7 +129,7 @@
 
 @media (max-width: 900px) {
   .section {
-    padding-bottom: 60px;
+    padding-bottom: var(--section-y);
   }
   .heading {
     font-size: 36px;
@@ -138,5 +138,25 @@
   .ghost {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .heading {
+    font-size: 32px;
+  }
+  .card {
+    padding: 24px 20px;
+  }
+  .blurb {
+    font-size: 17px;
+  }
+  .actions {
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .fiverr,
+  .ghost {
+    min-height: 50px;
   }
 }

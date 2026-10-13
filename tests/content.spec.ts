@@ -69,12 +69,20 @@ test.describe("navigation", () => {
   });
 
   test("nav links scroll to their sections", async ({ page }) => {
+    // On a phone the nav is a full-screen panel behind the Menu button, so it
+    // has to be opened before its links can be clicked. Above the breakpoint
+    // the links are inline and this is a no-op.
+    const menu = page.locator("[data-menu-btn]");
     for (const [link, target] of [
       ["About", "#about"],
       ["Work", "#projects"],
       ["Education", "#education"],
       ["Contact", "#contact"],
     ] as const) {
+      if (await menu.isVisible()) {
+        await menu.click();
+        await page.waitForTimeout(320);
+      }
       await page.locator(`header nav a:has-text("${link}")`).click();
 
       // Smooth scrolling is async and can span a long distance; wait until the

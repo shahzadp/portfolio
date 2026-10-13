@@ -42,14 +42,139 @@
   padding: 0 2px;
 }
 
+/* Menu button: only exists for the overlay-nav variant on phones. Hidden by
+   default so it cannot appear in the desktop or wrapped layouts. */
+.menuBtn {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+}
+
+.menuBars {
+  position: relative;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  flex: none;
+}
+
+.menuBars::before,
+.menuBars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  transition: transform var(--t-med) var(--ease);
+}
+
+.menuBars::before {
+  top: -5px;
+}
+
+.menuBars::after {
+  top: 5px;
+}
+
 @media (max-width: 640px) {
+  /* Menu overlay.
+     Six links wrapping onto two rows above the hero ate the most valuable
+     space on the page, so on a phone they become a full-screen panel behind
+     the Menu button and the header sticks so that button stays reachable.
+
+     In this module rather than globals.css for the same reason as the hero:
+     at equal specificity the later-injected stylesheet wins, and globals.css
+     comes before module CSS. */
   .header {
-    padding: 20px var(--gutter);
-    flex-direction: column;
-    align-items: flex-start;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    max-width: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px var(--gutter);
+    background: var(--cream);
+  }
+  .menuBtn {
+    display: inline-flex;
+    flex: none;
+  }
+  /* The panel is a child of the header, so it paints above the header's own
+     background no matter how the header is z-indexed. Lift the brand and the
+     Menu button above the panel instead, or opening the menu hides the only
+     control that closes it. */
+  .brand,
+  .menuBtn {
+    position: relative;
+    z-index: 101;
+  }
+  /* Kept filled cream so the button stays legible over the dark panel. */
+  .menuBtn {
+    background: var(--cream);
+  }
+  .header[data-open] .brand {
+    color: var(--cream-text);
   }
   .nav {
-    gap: 8px 20px;
-    font-size: 13px;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    margin: 0;
+    padding: calc(var(--gutter) * 3) var(--gutter);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    background: var(--ink);
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--t-med) var(--ease), visibility var(--t-med) var(--ease);
+  }
+  /* is-open is a plain class so Motion/Header can toggle it; escaped so it
+     is not hashed. */
+  .nav:global(.is-open) {
+    opacity: 1;
+    visibility: visible;
+  }
+  .nav a {
+    min-height: 56px;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    color: var(--cream-text);
+  }
+  .nav a:hover {
+    color: var(--tan-text);
+  }
+  /* Hamburger turns into a cross while the panel is open. */
+  .menuBtn[aria-expanded="true"] .menuBars::before {
+    transform: translateY(5px) rotate(45deg);
+  }
+  .menuBtn[aria-expanded="true"] .menuBars::after {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+}
+
+/* Stop the page behind the open panel scrolling along with it. Not nested in
+   the media query so it reads as a page-level rule, but only ever matches
+   while the panel is open, which only happens below 640px. */
+@media (max-width: 640px) {
+  body:has(.nav:global(.is-open)) {
+    overflow: hidden;
   }
 }

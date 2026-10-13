@@ -3,7 +3,7 @@
 .section {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 88px var(--gutter);
+  padding: var(--section-y) var(--gutter);
 }
 
 .head {
@@ -118,12 +118,41 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 60px var(--gutter);
+    padding: var(--section-y) var(--gutter);
   }
   .heading {
     font-size: 36px;
   }
   .qualification {
     font-size: 24px;
+  }
+}
+
+/* Phone: the timeline rail was costing 54px of a ~350px column, which is a
+   sixth of the width spent on decoration. Narrow it and let the text have
+   the rest. */
+@media (max-width: 640px) {
+  .heading {
+    font-size: 32px;
+  }
+  .item {
+    grid-template-columns: 22px 1fr;
+    gap: 14px;
+  }
+  .qualification {
+    font-size: 22px;
+  }
+  .row {
+    /* Qualification above period, rather than period floating opposite it. */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .body {
+    padding-bottom: 26px;
+  }
+  .institution,
+  .note {
+    font-size: 16px;
   }
 }

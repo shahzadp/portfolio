@@ -61,14 +61,34 @@ test.describe("accessibility", () => {
   });
 
   test("keyboard focus reaches every interactive element with a visible ring", async ({ page }) => {
-    const ring = await page.evaluate(() => {
-      const el = document.querySelector<HTMLAnchorElement>("header nav a")!;
-      el.focus();
-      const s = getComputedStyle(el);
-      return { style: s.outlineStyle, width: s.outlineWidth };
+    // Walks a list of real controls rather than hardcoding one. On a phone
+    // the header nav lives inside a closed overlay panel and is inert, so a
+    // fixed `header nav a` would assert against something no user can reach.
+    const checked = await page.evaluate(() => {
+      const candidates = ["#top .actions a", "#projects a", "#freelance a", "#contact a"];
+      return candidates.flatMap((sel) => {
+        const el = document.querySelector<HTMLElement>(sel);
+        if (!el || el.closest("[inert]")) return [];
+        if (getComputedStyle(el).display === "none") return [];
+        el.focus();
+        const s = getComputedStyle(el);
+        return [
+          {
+            sel,
+            focused: document.activeElement === el,
+            style: s.outlineStyle,
+            width: s.outlineWidth,
+          },
+        ];
+      });
     });
-    expect(ring.style).not.toBe("none");
-    expect(parseFloat(ring.width)).toBeGreaterThan(0);
+
+    expect(checked.length, "no focusable candidates found").toBeGreaterThan(0);
+    for (const c of checked) {
+      expect(c.focused, `${c.sel} could not take focus`).toBe(true);
+      expect(c.style, `${c.sel} outline-style`).not.toBe("none");
+      expect(parseFloat(c.width), `${c.sel} outline width`).toBeGreaterThan(0);
+    }
   });
 
   test("keyboard navigation reaches the WhatsApp badge", async ({ page }) => {
@@ -141,14 +161,15 @@ test.describe("design fidelity vs the mockup", () => {
   });
 
   test("card and tag styling matches the mockup values", async ({ page }) => {
+    const width = page.viewportSize()!.width;
+    const isPhone = width <= 640;
+
     const card = await page.evaluate(() => {
       const h3 = document.querySelector("#projects h3")!;
       const s = getComputedStyle(h3.parentElement!);
       return { padding: s.padding, border: s.borderTopColor, gap: s.gap };
     });
-    expect(card.padding).toBe("28px");
-    expect(card.border).toBe("rgb(205, 191, 159)"); // #CDBF9F
-    expect(card.gap).toBe("14px");
+    expect(card.border, "card border colour is layout independent").toBe("rgb(205, 191, 159)"); // #CDBF9F
 
     // Structural selector: the stack tags live in the last div of the card,
     // as a sibling of the h3. A bare `span[class]` would pick up the
@@ -159,9 +180,26 @@ test.describe("design fidelity vs the mockup", () => {
       const s = getComputedStyle(el);
       return { size: s.fontSize, colour: s.color, padding: s.padding, text: el.textContent };
     });
-    expect(tag.size).toBe("12px");
     expect(tag.colour).toBe("rgb(90, 79, 63)"); // #5A4F3F
-    expect(tag.padding).toBe("3px 9px");
+
+    if (isPhone) {
+      // The mockup is a desktop artifact and the phone layout deliberately
+      // departs from it to reclaim width. What must still hold: cards are
+      // still framed and still tagged, just tighter.
+      expect(card.padding, "phone cards lost their frame padding").not.toBe("0px");
+      const v = (s: string) => parseFloat(s);
+      expect(
+        v(card.padding) < 28,
+        `phone card padding ${card.padding} should be tighter than desktop's 28px`,
+      ).toBe(true);
+      expect(tag.size, "tag text should stay legible on a phone").toBe("12px");
+      expect(tag.padding).toBe("3px 9px");
+    } else {
+      expect(card.padding).toBe("28px");
+      expect(card.gap).toBe("14px");
+      expect(tag.size).toBe("12px");
+      expect(tag.padding).toBe("3px 9px");
+    }
   });
 
   test("buttons meet the mockup metrics", async ({ page }) => {

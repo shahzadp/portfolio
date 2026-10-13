@@ -5,11 +5,13 @@ import Projects from "@/components/Projects";
 import Education from "@/components/Education";
 import Freelance from "@/components/Freelance";
 import Contact from "@/components/Contact";
+import Motion from "@/components/Motion";
 import { projects, site } from "@/content/site.generated";
 
 export default function Home() {
   return (
     <>
+      <Motion />
       <Header />
       <main>
         <Hero />

@@ -4,7 +4,7 @@
 .section {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 88px var(--gutter);
+  padding: var(--section-y) var(--gutter);
 }
 
 .head {
@@ -123,12 +123,48 @@
 
 @media (max-width: 900px) {
   .section {
-    padding: 60px var(--gutter);
+    padding: var(--section-y) var(--gutter);
   }
   .heading {
     font-size: 36px;
   }
   .cardTitle {
     font-size: 24px;
+  }
+}
+
+/* Phone: one card per row, with the padding pulled in so the text column
+   stays wide enough to read without reflowing every second word. */
+@media (max-width: 640px) {
+  .heading {
+    font-size: 32px;
+  }
+  .cardTitle {
+    font-size: 23px;
+  }
+  .head {
+    margin-bottom: 28px;
+  }
+  .sub {
+    font-size: 16px;
+  }
+  .grid {
+    gap: 16px;
+  }
+  .card {
+    padding: 22px 20px;
+    gap: 12px;
+  }
+  .cardBlurb {
+    font-size: 16px;
+  }
+}
+
+/* Touch devices get no hover, so the lift has to happen on press instead,
+   otherwise the card gives no feedback that it is tappable at all. */
+@media (hover: none) {
+  .card:active {
+    border-color: var(--accent);
+    transform: translateY(-2px);
   }
 }

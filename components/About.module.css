@@ -10,7 +10,7 @@
 .inner {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 72px var(--gutter);
+  padding: var(--section-y) var(--gutter);
   display: flex;
   gap: 64px;
   flex-wrap: wrap;
@@ -65,10 +65,37 @@
 
 @media (max-width: 900px) {
   .inner {
-    padding: 56px var(--gutter);
+    padding: var(--section-y) var(--gutter);
     gap: 40px;
   }
   .heading {
     font-size: 32px;
+  }
+}
+
+/* On a phone the three skill groups become a long single column. Turn them
+   into labelled rows separated by rules rather than letting them run
+   together as one undifferentiated list of words. */
+@media (max-width: 640px) {
+  .heading {
+    font-size: 30px;
+  }
+  .panel {
+    gap: 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .group {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .group:last-child {
+    border-bottom: 0;
+  }
+  .label {
+    margin-bottom: 10px;
+  }
+  .items {
+    font-size: 16px;
+    line-height: 1.7;
   }
 }

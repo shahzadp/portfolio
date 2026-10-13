@@ -24,11 +24,12 @@ export default function Contact() {
           rel="noopener noreferrer"
           aria-label={`Chat with ${site.name} on WhatsApp`}
           title="Chat on WhatsApp"
+          data-reveal
         >
           <WhatsAppIcon className={styles.waIcon} />
         </a>
 
-        <div className={styles.intro}>
+        <div className={styles.intro} data-reveal style={{ "--i": 1 } as React.CSSProperties}>
           <h2 className={styles.heading}>{contact.heading}</h2>
           <p className={styles.blurb}>{contact.blurb}</p>
           <div className={styles.links}>
@@ -52,6 +53,8 @@ export default function Contact() {
           href={whatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
+          data-reveal
+          style={{ "--i": 2 } as React.CSSProperties}
         >
           <WhatsAppIcon className={styles.waBtnIcon} />
           Chat on WhatsApp

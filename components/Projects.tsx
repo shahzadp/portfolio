@@ -23,7 +23,7 @@ export default function Projects({
 }: Props) {
   return (
     <section id={id} className={styles.section}>
-      <div className={styles.head}>
+      <div className={styles.head} data-reveal>
         <div>
           <div className={styles.eyebrow}>{eyebrow}</div>
           <h2 className={styles.heading}>{heading}</h2>
@@ -37,7 +37,7 @@ export default function Projects({
       </div>
 
       <div className={styles.grid}>
-        {projects.map((p) => {
+        {projects.map((p, i) => {
           /* Falls back to WhatsApp so a project with no public link is still
              contactable. */
           const href = p.repoUrl || p.liveUrl || whatsappUrl();
@@ -50,6 +50,8 @@ export default function Projects({
               href={href}
               target={external ? "_blank" : undefined}
               rel="noopener noreferrer"
+              data-reveal
+              style={{ "--i": i } as React.CSSProperties}
             >
               <h3 className={styles.cardTitle}>
                 {p.title}

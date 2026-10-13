@@ -5,20 +5,22 @@ import { assetUrl } from "@/app/paths";
 
 export default function Hero() {
   return (
-    <section id="top" className={styles.hero}>
+    <section id="top" className={styles.hero} data-hero>
       <div className={styles.copy}>
-        <div className={styles.eyebrow}>
-          <span className={styles.dot} aria-hidden="true" />
+        <div className={styles.eyebrow} data-reveal>
+          <span className={styles.dot} data-dot aria-hidden="true" />
           {site.role} · {site.location}
         </div>
 
-        <h1 className={styles.title}>
+        <h1 className={styles.title} data-reveal style={{ "--i": 1 } as React.CSSProperties}>
           {site.name}, building cutting-edge software.
         </h1>
 
-        <p className={styles.bio}>{site.bio}</p>
+        <p className={styles.bio} data-reveal style={{ "--i": 2 } as React.CSSProperties}>
+          {site.bio}
+        </p>
 
-        <div className={styles.actions}>
+        <div className={styles.actions} data-reveal style={{ "--i": 3 } as React.CSSProperties}>
           {site.resumeUrl ? (
             <a className={styles.btnSolid} href={assetUrl(site.resumeUrl)!} download>
               Download CV
@@ -34,14 +36,14 @@ export default function Hero() {
         </div>
       </div>
 
-      <figure className={styles.portrait}>
+      <figure className={styles.portrait} data-hero-portrait data-reveal style={{ "--i": 2 } as React.CSSProperties}>
         <Image
           src={assetUrl(site.portrait)!}
           alt={`Portrait of ${site.name}`}
           width={763}
           height={1200}
           priority
-          sizes="(max-width: 900px) 280px, 320px"
+          sizes="(max-width: 640px) 100vw, (max-width: 900px) 280px, 320px"
           className={styles.portraitImg}
         />
         <figcaption className={styles.caption}>

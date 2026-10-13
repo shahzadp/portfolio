@@ -4,14 +4,19 @@ import { education } from "@/content/site.generated";
 export default function Education() {
   return (
     <section id="education" className={styles.section}>
-      <div className={styles.head}>
+      <div className={styles.head} data-reveal>
         <div className={styles.eyebrow}>Education</div>
         <h2 className={styles.heading}>Education history</h2>
       </div>
 
       <ol className={styles.list}>
         {education.map((e, i) => (
-          <li key={`${e.qualification}-${e.period}`} className={styles.item}>
+          <li
+            key={`${e.qualification}-${e.period}`}
+            className={styles.item}
+            data-reveal
+            style={{ "--i": i } as React.CSSProperties}
+          >
             <div className={styles.marker} aria-hidden="true">
               <span className={styles.dot} />
             </div>

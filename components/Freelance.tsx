@@ -4,7 +4,7 @@ import { freelance, site, whatsappUrl } from "@/content/site.generated";
 export default function Freelance() {
   return (
     <section id="freelance" className={styles.section}>
-      <div className={styles.card}>
+      <div className={styles.card} data-reveal>
         <div className={styles.head}>
           <div className={styles.eyebrow}>Freelance</div>
           <h2 className={styles.heading}>Available for hire</h2>
