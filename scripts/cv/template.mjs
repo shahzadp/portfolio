@@ -124,7 +124,7 @@ export function buildCvHtml({ profile, stackGroups, projects, education }) {
     .join("")}
 
   <footer>
-    Generated from ${esc(profile.name)}'s portfolio. Full project write-ups and private repository access on request.
+    Generated from ${esc(profile.name)}'s portfolio. Full project write-ups available on request.
   </footer>
 </body></html>`;
 }
