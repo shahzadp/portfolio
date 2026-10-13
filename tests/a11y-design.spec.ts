@@ -150,9 +150,14 @@ test.describe("design fidelity vs the mockup", () => {
     expect(card.border).toBe("rgb(205, 191, 159)"); // #CDBF9F
     expect(card.gap).toBe("14px");
 
+    // Structural selector: the stack tags live in the last div of the card,
+    // as a sibling of the h3. A bare `span[class]` would pick up the
+    // "In progress" badge that can sit inside the h3, which is a different
+    // element with different metrics.
     const tag = await page.evaluate(() => {
-      const s = getComputedStyle(document.querySelector("#projects span[class]")!);
-      return { size: s.fontSize, colour: s.color, padding: s.padding };
+      const el = document.querySelector("#projects h3 ~ div span[class]")!;
+      const s = getComputedStyle(el);
+      return { size: s.fontSize, colour: s.color, padding: s.padding, text: el.textContent };
     });
     expect(tag.size).toBe("12px");
     expect(tag.colour).toBe("rgb(90, 79, 63)"); // #5A4F3F

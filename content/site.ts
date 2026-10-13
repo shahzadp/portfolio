@@ -94,29 +94,32 @@ export const projects: Project[] = [
     title: "DoL by Alex",
     repo: "DoL-by-Alex",
     blurb:
-      "An Android port of an open source Twine interactive fiction game, shipped as an offline native app.",
+      "An Android port of an open source Twine interactive fiction game, migrated twice and shipped offline.",
     description:
-      "A Capacitor shell that wraps a 50 MB single file SugarCube 2 story and runs it entirely " +
-      "offline. No network calls at runtime, no ads, no tracking. The hard part was making a " +
-      "browser game behave like a real app: save storage that cannot silently vanish, a splash " +
-      "screen that dismisses on a true readiness signal rather than a timer, and a release " +
-      "pipeline that refuses to ship unless the signatures verify.",
+      "A native Flutter shell around a 50 MB single file SugarCube 2 story. Runs fully offline: " +
+      "no network calls at runtime, no ads, no tracking. The shell has been rebuilt twice, " +
+      "Cordova to Capacitor and then Capacitor to Flutter, and each migration surfaced a layer " +
+      "of bugs that had been hiding behind the one before it.",
     problem:
-      "A Twine story is just an HTML file. Turning one into an app that players trust with their " +
-      "saves meant solving storage, lifecycle and signing problems that the game itself never had.",
-    stack: ["Capacitor", "Android", "JavaScript", "Gradle"],
+      "A Twine story is just an HTML file. Making it an app players trust with their saves means " +
+      "owning storage, assets, export and signing, none of which the game itself ever had to " +
+      "worry about.",
+    stack: ["Flutter", "Dart", "Android", "WebView"],
     image: null,
     featured: true,
-    status: "live",
+    status: "building",
     repoUrl: "https://github.com/shahzadp/DoL-by-Alex",
     highlights: [
-      "Migrated the native shell from Cordova to Capacitor 8.5.3 across 127 commits",
-      "Pinned the WebView origin so player saves can never silently disappear",
-      "Release build with R8 shrinking, 33.5 MB down to 26.4 MB",
-      "Build script verifies v2 and v3 signatures and fails the build if either is missing",
-      "Kept the whole shell inside the game repo so game and app never drift apart",
+      "Second full shell migration: Cordova to Capacitor to Flutter 3.47.7",
+      "Fixed export failing silently across four layers at once",
+      "Re-encoded 18,593 PNGs to lossless WebP, cutting artwork 60.9% and the release APK 7.5 MB",
+      "Measured every optimisation instead of assuming: lossy WebP was larger, so it was rejected",
+      "Traced 2,073 silently missing images to percent-encoded asset keys with spaces in paths",
+      "Reuses the previous signing key, so it installs as an in-place update over the old build",
     ],
-    impact: "Shipped as a signed release APK and verified down to the DEX.",
+    impact:
+      "Release APK down to 34.2 MB, and arm64-only cuts that roughly in half again. Builds, " +
+      "signs and passes its own test suite; the device run is the last step outstanding.",
   },
   {
     id: "p2",
@@ -211,7 +214,7 @@ export const freelance = {
   services: [
     "Android app development",
     "Web application development",
-    "Capacitor and cross platform builds",
+    "Flutter and cross platform builds",
     "Image editing and photo tools",
   ],
 };
