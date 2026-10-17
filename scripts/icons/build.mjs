@@ -32,21 +32,22 @@ const svgUrl = pathToFileURL(SOURCE).href;
  * `scale` shrinks the artwork about the centre, on top of whatever the SVG
  * itself applies.
  *
- * 1.0 for "any" icons, which the launcher displays as-is.
+ * Every target is 1.0, deliberately. Which icon a launcher picks from a web
+ * manifest is not ours to decide -- it may take the "any" entry or the
+ * "maskable" one -- so the two must be identical. An earlier build scaled the
+ * artwork up to 86% but shrank the maskable variant to 0.64 to respect the
+ * 80% safe-zone guidance; a launcher that picked the maskable entry then
+ * rendered it at about 55% of the tile and the enlargement looked like it had
+ * done nothing.
  *
- * Maskable icons get 0.64. The maskable safe zone is a circle of diameter 80%
- * of the tile, so a mark may sit at most 40% of the tile width from the centre
- * measured to its farthest corner. On the authored 108 grid that corner sits
- * 45.25 units out (32 units on each axis, times root two), and the SVG scales
- * the artwork by 1.45: 45.25 * 1.45 = 65.6 units, or 61% of the tile.
- * 65.6 * 0.64 = 42 units = 39%, just inside the limit. Raising this number
- * clips the outer blocks on a circular mask.
+ * If you change this, change it for all four. A per-target scale here is the
+ * bug, not the fix.
  */
 const TARGETS = [
   // filename                     size  scale  purpose
   ["icon-192.png", 192, 1, "manifest, any purpose"],
   ["icon-512.png", 512, 1, "manifest, any purpose"],
-  ["icon-maskable-512.png", 512, 0.64, "manifest, maskable: launcher may crop"],
+  ["icon-maskable-512.png", 512, 1, "manifest, maskable"],
   ["apple-touch-icon.png", 180, 1, "iOS home screen"],
 ];
 

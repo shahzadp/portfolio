@@ -11,11 +11,13 @@
  *  Old caches are deleted wholesale on activate, so this is the only lever
  *  needed to push an update out.
  *
- *  v2: icons enlarged. The icons are in PRECACHE, so without this an already
- *      installed copy keeps serving the old bitmaps from cache. Note this
- *      does not change an app icon Android already captured at install time;
- *      that still needs an uninstall and reinstall. */
-const VERSION = "v2";
+ *  v2: icons enlarged.
+ *  v3: any and maskable icons unified, artwork at 86% of the tile in both.
+ *      The icons are in PRECACHE, so without this an already installed copy
+ *      keeps serving the old bitmaps from cache. Note this does not change an
+ *      app icon Android already captured at install time; that still needs an
+ *      uninstall and reinstall. */
+const VERSION = "v3";
 const SHELL = `portfolio-shell-${VERSION}`;
 const ASSETS = `portfolio-assets-${VERSION}`;
 

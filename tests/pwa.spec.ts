@@ -55,11 +55,11 @@ test.describe("manifest", () => {
     const href = (await page.locator('link[rel="manifest"]').getAttribute("href"))!;
     const manifest = await (await page.request.get(href)).json();
 
-    const manifestDir = href.slice(0, href.lastIndexOf("/") + 1);
+    const manifestUrl = new URL(href, page.url()).href;
     expect(manifest.icons.length, "no icons declared").toBeGreaterThanOrEqual(3);
 
     for (const icon of manifest.icons) {
-      const url = new URL(icon.src, `https://x${manifestDir}`).pathname;
+      const url = new URL(icon.src, manifestUrl).href;
       const res = await page.request.get(url);
       expect(res.status(), `${icon.src} -> ${url} returned ${res.status()}`).toBe(200);
     }
@@ -81,6 +81,41 @@ test.describe("manifest", () => {
           i.sizes === "512x512" && i.purpose.includes("maskable"),
       ),
       "no maskable 512x512 icon",
+    ).toBe(true);
+  });
+
+  test("the any and maskable icons are identical", async ({ page }) => {
+    await page.goto("/");
+    const href = (await page.locator('link[rel="manifest"]').getAttribute("href"))!;
+    const manifest = await (await page.request.get(href)).json();
+
+    const dir = href.slice(0, href.lastIndexOf("/") + 1);
+    type Icon = { src: string; sizes: string; purpose?: string };
+
+// Manifest icon src values are relative to the manifest's own URL, which sits
+// in the deployment's base path. Resolving against page.url() handles both the
+// path prefix and the relative form without inventing a host.
+const absolute = (src: string) => new URL(src, new URL(href, page.url()).href).href;
+
+const pick = (icons: Icon[], purpose: string) =>
+  icons.find((i) => (i.purpose ?? "any").includes(purpose) && i.sizes === "512x512")?.src;
+
+const any = pick(manifest.icons as Icon[], "any");
+const maskable = pick(manifest.icons as Icon[], "maskable");
+    expect(any, "no 512x512 any icon").toBeTruthy();
+    expect(maskable, "no 512x512 maskable icon").toBeTruthy();
+
+    const a = await (await page.request.get(absolute(any!))).body();
+    const b = await (await page.request.get(absolute(maskable!))).body();
+
+    /* Which of the two a launcher picks from a web manifest is not ours to
+       decide. They diverged once: the artwork was enlarged but the maskable
+       copy was shrunk to respect the 80% safe-zone guidance, so a device that
+       took the maskable entry still rendered a small icon and the enlargement
+       looked like it had done nothing. Identical bytes removes the question. */
+    expect(
+      a.equals(b),
+      "the any and maskable icons differ; a launcher picking the maskable one will show a different size",
     ).toBe(true);
   });
 

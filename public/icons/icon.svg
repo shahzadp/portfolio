@@ -4,12 +4,21 @@
 
   <!--
     The mark is authored on its original 22..86 grid, which leaves it at 59% of
-    the tile and reads as a small icon next to launchers that fill theirs. It
-    is scaled up about the centre to 86% so it sits at the same visual weight
-    as a typical home screen icon. The paths below are unchanged.
+    the tile and reads as a small icon next to launcher icons that fill theirs.
+    It is scaled 1.45 about the centre, to 86%, leaving a border of roughly 7
+    units on each side. The paths themselves are unchanged.
 
-    Maskable icons are cropped to an arbitrary shape, so scripts/icons/build.mjs
-    scales this further for those; see the note there about the safe radius.
+    Both the "any" and the maskable variant are emitted at this same geometry.
+    An earlier build scaled the artwork up but additionally shrank the maskable
+    icon to 0.64, so a launcher that picked the maskable one still rendered at
+    about 55% of the tile and the enlargement appeared to have done nothing.
+    The two have to stay identical, because which one a launcher picks is not
+    ours to decide.
+
+    That 7 unit margin is also what keeps the four blocks whole under a
+    circular mask: at 1:1 the artwork's outer corner sits 68.7 units from the
+    centre against a 54 unit radius, so filling the tile outright would shave
+    the corners off.
   -->
   <g transform="translate(54,54) scale(1.45) translate(-54,-54)">
 
