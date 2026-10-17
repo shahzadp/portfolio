@@ -16,8 +16,10 @@
  *      The icons are in PRECACHE, so without this an already installed copy
  *      keeps serving the old bitmaps from cache. Note this does not change an
  *      app icon Android already captured at install time; that still needs an
- *      uninstall and reinstall. */
-const VERSION = "v3";
+ *      uninstall and reinstall.
+ *  v4: artwork retuned to 66% of the canvas, which displays at ~83% once
+ *      Chrome crops the maskable icon to its central 80%. */
+const VERSION = "v4";
 const SHELL = `portfolio-shell-${VERSION}`;
 const ASSETS = `portfolio-assets-${VERSION}`;
 

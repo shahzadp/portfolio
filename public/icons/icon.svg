@@ -3,24 +3,27 @@
   <path fill="#FFFFFF" d="M0,0h108v108h-108z"/>
 
   <!--
-    The mark is authored on its original 22..86 grid, which leaves it at 59% of
-    the tile and reads as a small icon next to launcher icons that fill theirs.
-    It is scaled 1.45 about the centre, to 86%, leaving a border of roughly 7
-    units on each side. The paths themselves are unchanged.
+    The mark is authored on its original 22..86 grid, which is 59% of the tile.
 
-    Both the "any" and the maskable variant are emitted at this same geometry.
-    An earlier build scaled the artwork up but additionally shrank the maskable
-    icon to 0.64, so a launcher that picked the maskable one still rendered at
-    about 55% of the tile and the enlargement appeared to have done nothing.
-    The two have to stay identical, because which one a launcher picks is not
-    ours to decide.
+    It is scaled 1.12 about the centre, to 66%, because Chrome does not display
+    a maskable icon at 1:1. It crops to roughly the central 80% of the canvas
+    and scales that to fill the icon slot, magnifying the artwork by 1.25.
+    Both observations from the installed app agree with that model:
 
-    That 7 unit margin is also what keeps the four blocks whole under a
-    circular mask: at 1:1 the artwork's outer corner sits 68.7 units from the
-    centre against a 54 unit radius, so filling the tile outright would shave
-    the corners off.
+      bitmap 59%  -> displayed 74%,  border 26% a side  -> read as too small
+      bitmap 86%  -> displayed 108%, border clipped away -> read as too large
+
+    66% lands at 83% displayed with a border of roughly 8% on each side.
+
+    alex-store-app gets the same look differently: it is a native app with a
+    two-layer adaptive icon, so the system owns the crop. A web manifest has no
+    equivalent control, so the crop is compensated for here instead.
+
+    Both the "any" and the maskable variant are emitted at this same geometry,
+    since which one a launcher picks from a web manifest is not ours to decide.
+    The paths themselves are unchanged.
   -->
-  <g transform="translate(54,54) scale(1.45) translate(-54,-54)">
+  <g transform="translate(54,54) scale(1.12) translate(-54,-54)">
 
     <!-- Top-left -->
     <path fill="#aa441e" d="M28,22h19a6,6 0 0 1 6,6v19a6,6 0 0 1 -6,6h-19a6,6 0 0 1 -6,-6v-19a6,6 0 0 1 6,-6z"/>
