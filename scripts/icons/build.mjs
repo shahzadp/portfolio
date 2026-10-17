@@ -29,18 +29,24 @@ const svg = readFileSync(SOURCE, "utf8");
 const svgUrl = pathToFileURL(SOURCE).href;
 
 /**
- * `scale` shrinks the artwork about the centre.
+ * `scale` shrinks the artwork about the centre, on top of whatever the SVG
+ * itself applies.
  *
- * 1.0 for "any" icons, which are displayed as-is. Maskable icons get 0.88:
- * the artwork's corners sit at ~42% of the tile from centre, and the safe
- * zone is a circle of radius 40%, so the outer blocks would otherwise be
- * clipped by round masks.
+ * 1.0 for "any" icons, which the launcher displays as-is.
+ *
+ * Maskable icons get 0.64. The maskable safe zone is a circle of diameter 80%
+ * of the tile, so a mark may sit at most 40% of the tile width from the centre
+ * measured to its farthest corner. On the authored 108 grid that corner sits
+ * 45.25 units out (32 units on each axis, times root two), and the SVG scales
+ * the artwork by 1.45: 45.25 * 1.45 = 65.6 units, or 61% of the tile.
+ * 65.6 * 0.64 = 42 units = 39%, just inside the limit. Raising this number
+ * clips the outer blocks on a circular mask.
  */
 const TARGETS = [
   // filename                     size  scale  purpose
   ["icon-192.png", 192, 1, "manifest, any purpose"],
   ["icon-512.png", 512, 1, "manifest, any purpose"],
-  ["icon-maskable-512.png", 512, 0.88, "manifest, maskable: launcher may crop"],
+  ["icon-maskable-512.png", 512, 0.64, "manifest, maskable: launcher may crop"],
   ["apple-touch-icon.png", 180, 1, "iOS home screen"],
 ];
 

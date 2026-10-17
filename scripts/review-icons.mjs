@@ -16,11 +16,13 @@ const icons = [
   ["apple-touch-icon.png", 180, "iOS home screen"],
 ];
 
-// Round and squircle masks applied to the any-purpose icon, which is what the
-// launcher does to it when the platform crops.
+// Round and squircle masks, applied to the maskable icon. This is the pair
+// that matters: a launcher crops the maskable one, and previewing the "any"
+// icon under a mask just shows it being clipped, which is the problem the
+// maskable variant exists to solve.
 const masks = [
-  ["circle", "border-radius:50%", "round mask"],
-  ["squircle", "border-radius:30%", "squircle mask"],
+  ["circle", "border-radius:50%", "maskable, round crop"],
+  ["squircle", "border-radius:30%", "maskable, squircle crop"],
 ];
 
 const card = (style, label, src, px) => `
@@ -60,7 +62,7 @@ const sheet = `<!doctype html><meta charset="utf-8">
   ${card("", icons[0][2], icons[0][0], icons[0][1])}
   ${card("", icons[1][2], icons[1][0], 200)}
   ${card("", icons[2][2], icons[2][0], icons[2][1])}
-  ${masks.map(([n, s, l]) => card(s, l, "icon-512.png", 150)).join("")}
+  ${masks.map(([, s, l]) => card(s, l, "icon-maskable-512.png", 150)).join("")}
 </div>
 
 <h2>Launched from the home screen</h2>
