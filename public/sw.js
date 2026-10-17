@@ -18,8 +18,10 @@
  *      app icon Android already captured at install time; that still needs an
  *      uninstall and reinstall.
  *  v4: artwork retuned to 66% of the canvas, which displays at ~83% once
- *      Chrome crops the maskable icon to its central 80%. */
-const VERSION = "v4";
+ *      Chrome crops the maskable icon to its central 80%.
+ *  v5: artwork to 73% of the canvas, measured against the installed icon to
+ *      land at 91% displayed, matching alex-store-app. */
+const VERSION = "v5";
 const SHELL = `portfolio-shell-${VERSION}`;
 const ASSETS = `portfolio-assets-${VERSION}`;
 

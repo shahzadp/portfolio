@@ -75,13 +75,14 @@ const sheet = `<!doctype html><meta charset="utf-8">
   .app .body p { font:13px/1.5 system-ui, sans-serif; color:#4a4033; margin:0 14px; }
 </style>
 <h1>PWA icon review</h1>
-<p class="note">The bitmap holds the artwork at 66% of the canvas. Chrome crops a
-maskable icon to the central 80% and scales that to fill the slot, so what lands
-on the home screen is the artwork at about 83% with a white border of roughly 8%
-a side.</p>
-<p class="note">That model is fitted to two observations from the installed app:
-a 59% bitmap read as too small, and an 86% bitmap read as too large with the
-white border clipped away.</p>
+<p class="note">The bitmap holds the artwork at 73% of the canvas. Chrome crops a
+maskable icon to the central 80% and scales that to fill the icon slot, so what
+lands on the home screen is the artwork at about 91% with a white border of
+roughly 4% a side.</p>
+<p class="note">That target came from measuring a side-by-side screenshot of the
+installed icon against alex-store-app's: ours measured 81% fill where theirs
+measured 91%. The previous revision, predicted to display at 83%, did indeed
+land at 81%, which is what confirmed the crop factor.</p>
 
 <h2>As it lands on the home screen</h2>
 <div class="row">

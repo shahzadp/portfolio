@@ -5,25 +5,30 @@
   <!--
     The mark is authored on its original 22..86 grid, which is 59% of the tile.
 
-    It is scaled 1.12 about the centre, to 66%, because Chrome does not display
-    a maskable icon at 1:1. It crops to roughly the central 80% of the canvas
+    It is scaled 1.24 about the centre, to 73%, because Chrome does not display
+    a maskable icon at 1:1: it crops to roughly the central 80% of the canvas
     and scales that to fill the icon slot, magnifying the artwork by 1.25.
-    Both observations from the installed app agree with that model:
 
-      bitmap 59%  -> displayed 74%,  border 26% a side  -> read as too small
-      bitmap 86%  -> displayed 108%, border clipped away -> read as too large
+    The scale was fitted against a side-by-side screenshot of the installed
+    Portfolio icon next to alex-store-app's, measuring the artwork's bounding
+    box against the tile width in each:
 
-    66% lands at 83% displayed with a border of roughly 8% on each side.
+      ours, bitmap 66%   -> predicted 83% displayed, measured 81%
+      alex-store's icon  -> 91% displayed
 
-    alex-store-app gets the same look differently: it is a native app with a
+    So 73% in the bitmap, landing at 91% displayed with a border of about 4%
+    a side, which is what the reference icon shows.
+
+    alex-store-app gets this without compensating: it is a native app with a
     two-layer adaptive icon, so the system owns the crop. A web manifest has no
-    equivalent control, so the crop is compensated for here instead.
+    background/foreground split and no such control, so the crop is undone here
+    instead.
 
     Both the "any" and the maskable variant are emitted at this same geometry,
-    since which one a launcher picks from a web manifest is not ours to decide.
-    The paths themselves are unchanged.
+    since which one a launcher picks is not ours to decide. The paths below are
+    unchanged.
   -->
-  <g transform="translate(54,54) scale(1.12) translate(-54,-54)">
+  <g transform="translate(54,54) scale(1.24) translate(-54,-54)">
 
     <!-- Top-left -->
     <path fill="#aa441e" d="M28,22h19a6,6 0 0 1 6,6v19a6,6 0 0 1 -6,6h-19a6,6 0 0 1 -6,-6v-19a6,6 0 0 1 6,-6z"/>
