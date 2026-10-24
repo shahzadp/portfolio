@@ -48,6 +48,9 @@ test.describe("SQLite is the source of truth", () => {
       "SELECT title, repo, repo_url FROM project WHERE visibility='public' ORDER BY sort",
     );
     expect(projects.map((p) => p.title)).toEqual([
+      "Recorder by Alex",
+      "Alex Store",
+      "Alex Store for Android",
       "DoL by Alex",
       "4 Games by Alex",
       "Photo Editor by Alex",
@@ -72,7 +75,7 @@ test.describe("SQLite is the source of truth", () => {
        WHERE g.label = 'Frameworks' ORDER BY i.sort`,
     ).map((r) => r.item);
 
-    expect(rows).toEqual(["Next.js", "Flutter", "Capacitor", "Playwright"]);
+    expect(rows).toEqual(["Next.js", "Flutter", "Kotlin", "Rust", "Capacitor", "Playwright"]);
   });
 
   test("the generated module is derived from the database", () => {

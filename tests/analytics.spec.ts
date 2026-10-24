@@ -40,7 +40,7 @@ test.describe("GoatCounter analytics", () => {
     await page.goto("/");
 
     await expect(page.locator("h1")).toContainText("Sikander Mughal");
-    await expect(page.locator("#projects h3")).toHaveCount(3);
+    await expect(page.locator("#projects h3")).toHaveCount(6);
     await expect(page.locator("#contact")).toContainText("Let us work together");
   });
 
@@ -71,7 +71,7 @@ test.describe("GoatCounter analytics", () => {
     await page.goto("/");
 
     await expect(page.locator("h1")).toContainText("Sikander Mughal");
-    await expect(page.locator("#projects h3")).toHaveCount(3);
+    await expect(page.locator("#projects h3")).toHaveCount(6);
     await expect(page.locator("#education")).toContainText("CDG Boys High School");
     await expect(page.locator("#contact")).toContainText("Let us work together");
     await expect(page.locator("#contact a[href*='resume.pdf']")).toHaveCount(0); // CV is in the hero

@@ -23,7 +23,7 @@ test.describe("projects", () => {
   test("every card links to a real repo", async ({ page }) => {
     const cards = page.locator("#projects a:has(h3)");
     const count = await cards.count();
-    expect(count).toBe(3);
+    expect(count).toBe(6);
 
     for (let i = 0; i < count; i++) {
       const card = cards.nth(i);

@@ -56,7 +56,9 @@ test.describe("generated content matches the database", () => {
         if (!value) continue;
         expect(value, `${p.title}: ${field} has joined words`).not.toMatch(/[a-z],[A-Za-z]/);
       }
-      const card = page.locator("#projects a", { hasText: p.title });
+      // Match on the blurb rather than the title: "Alex Store" is also a
+      // substring of "Alex Store for Android", so a title match is ambiguous.
+      const card = page.locator("#projects a", { hasText: norm(p.blurb) });
       await expect(card, `${p.title} not rendered`).toBeVisible();
       await expect(card, `${p.title} blurb differs`).toContainText(norm(p.blurb));
     }

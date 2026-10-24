@@ -47,12 +47,13 @@ test.describe("page loads", () => {
     // Languages / Frameworks / Tools
     const about = page.locator("#about");
     for (const v of ["English", "Urdu", "Punjabi"]) await expect(about).toContainText(v);
-    for (const v of ["Next.js", "Flutter", "Capacitor", "Playwright"]) await expect(about).toContainText(v);
+    for (const v of ["Next.js", "Flutter", "Kotlin", "Rust", "Capacitor", "Playwright"])
+      await expect(about).toContainText(v);
     for (const v of ["Git", "Node.js + pnpm", "Neovim", "PyTorch", "OpenCode"])
       await expect(about).toContainText(v);
 
     // Project counts
-    await expect(page.locator("#projects h3")).toHaveCount(3);
+    await expect(page.locator("#projects h3")).toHaveCount(6);
   });
 
   test("education history is complete", async ({ page }) => {
