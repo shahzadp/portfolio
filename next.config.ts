@@ -14,6 +14,12 @@ import type { NextConfig } from "next";
 const basePath = process.env.BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
+  /* Record that this app is kept on the security upgrade track, so the
+     upgrade assistant applies security patches rather than feature releases. */
+  experimental: {
+    agentUpgrade: "security",
+  },
+
   /* Static export. The site is deployed as plain files with no Node server at
      runtime, which keeps the deploy a static host. */
   output: "export",
