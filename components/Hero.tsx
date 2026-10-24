@@ -40,8 +40,8 @@ export default function Hero() {
         <Image
           src={assetUrl(site.portrait)!}
           alt={`Portrait of ${site.name}`}
-          width={763}
-          height={1200}
+          width={864}
+          height={864}
           priority
           sizes="(max-width: 640px) 100vw, (max-width: 900px) 280px, 320px"
           className={styles.portraitImg}
