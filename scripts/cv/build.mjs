@@ -10,7 +10,7 @@
  * tests/cv.spec.ts recomputes it and fails if the database has moved on
  * without the CV being rebuilt.
  */
-import { writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from "node:fs";
 import { statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -32,11 +32,22 @@ const { profile, stackGroups, projects, education } = loadCvData(DB_PATH);
 
 mkdirSync(dirname(PDF_PATH), { recursive: true });
 
+// Embed the portrait as a base64 data URL so the PDF is self-contained —
+// Chromium's page.pdf() does not serve local files, so a plain path
+// reference would come back blank.
+const portraitRel = profile.portrait;
+const portraitPath = portraitRel ? join(ROOT, "public", portraitRel.replace(/^\/+/, "")) : "";
+const portraitDataUrl =
+  portraitPath && existsSync(portraitPath)
+    ? `data:image/jpeg;base64,${readFileSync(portraitPath).toString("base64")}`
+    : "";
+
 const browser = await chromium.launch();
 const page = await browser.newPage();
-await page.setContent(buildCvHtml({ profile, stackGroups, projects, education }), {
-  waitUntil: "load",
-});
+await page.setContent(
+  buildCvHtml({ profile, stackGroups, projects, education, portraitDataUrl }),
+  { waitUntil: "load" },
+);
 await page.pdf({
   path: PDF_PATH,
   format: "A4",

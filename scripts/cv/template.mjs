@@ -3,12 +3,16 @@
  * Shared by scripts/cv/build.mjs (prints to PDF) and preview.mjs (screenshots).
  */
 
-export function buildCvHtml({ profile, stackGroups, projects, education }) {
+export function buildCvHtml({ profile, stackGroups, projects, education, portraitDataUrl }) {
   const esc = (s) =>
     String(s ?? "").replace(
       /[&<>"]/g,
       (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
     );
+
+  const portrait = portraitDataUrl
+    ? `<img class="portrait" src="${portraitDataUrl}" alt="">`
+    : "";
 
   const contact = [
     ["Email", profile.email],
@@ -34,10 +38,16 @@ export function buildCvHtml({ profile, stackGroups, projects, education }) {
     line-height: 1.42;
     color: #2b2620;
   }
-  header { border-bottom: 2px solid #a9441f; padding-bottom: 8px; margin-bottom: 12px; }
+  header { border-bottom: 2px solid #a9441f; padding: 14px 0 8px; margin-bottom: 12px; position: relative; }
+  .portrait {
+    position: absolute; top: 8px; right: 0;
+    width: 64px; height: 64px;
+    object-fit: cover; border-radius: 3px;
+    border: 2px solid #cdbf9f; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
   h1 {
     font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 30pt; line-height: 1; margin: 0 0 2px; letter-spacing: -0.01em;
+    font-size: 30pt; line-height: 1; margin: 0 92px 0 0; letter-spacing: -0.01em;
   }
   .role {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -75,6 +85,7 @@ export function buildCvHtml({ profile, stackGroups, projects, education }) {
 </style></head>
 <body>
   <header>
+    ${portrait}
     <h1>${esc(profile.name)}</h1>
     <div class="role">${esc(profile.role)} · Full Stack Developer</div>
     <div class="contact">${contact}</div>
