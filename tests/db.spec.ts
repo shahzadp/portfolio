@@ -54,6 +54,7 @@ test.describe("SQLite is the source of truth", () => {
       "DoL by Alex",
       "4 Games by Alex",
       "Photo Editor by Alex",
+      "Project Alice by Alex",
     ]);
     for (const p of projects) expect(p.repo_url).toMatch(/^https:\/\/github\.com\//);
 

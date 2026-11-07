@@ -53,7 +53,7 @@ test.describe("page loads", () => {
       await expect(about).toContainText(v);
 
     // Project counts
-    await expect(page.locator("#projects h3")).toHaveCount(6);
+    await expect(page.locator("#projects h3")).toHaveCount(7);
   });
 
   test("education history is complete", async ({ page }) => {

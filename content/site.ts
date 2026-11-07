@@ -112,6 +112,7 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/shahzadp/Recorder-by-Alex",
     highlights: [
       "Hand-written HTTP server and HLS dashboard served by the phone, with no backend",
+      "Live HLS buffer shortened to cut stream latency",
       "Camera frames copied plane by plane into a hardware H.264 encoder, strides included",
       "Fragmenter injects the missing tfdt and clears the tfhd base offset so MSE will play the stream",
       "Fixed a black preview that traced back to an empty video track and a rejected moof box",
@@ -148,9 +149,12 @@ export const projects: Project[] = [
       "SQLite in the browser via vendored sql.js, with no backend and no CDN in the critical path",
       "384-dimension semantic search with ternlight in WebAssembly; vectors ship precomputed",
       "Generated static pages from a zero-dependency build script",
+      "Content-Security-Policy on every page; catalog and vectors stay self-hosted",
+      "Tiered delivery pricing: struck-through +50% below Rs 1,000, +10% above",
+      "Food & Drinks menu with a free-delivery voucher, priced delivery-included",
       "PKR prices stored as integer paisa, with no floating point anywhere",
       "WhatsApp-only checkout, with the order prefilled from the catalog",
-      "Seven pages, 8 products and 3 collections in about 930 KB with no package manager",
+      "Seven pages, 12 products and 3 collections in about 1 MB with no package manager",
     ],
     impact:
       "A live storefront that runs entirely on GitHub Pages, with search that answers by meaning " +
@@ -179,10 +183,12 @@ export const projects: Project[] = [
     highlights: [
       "ternlight compiled to native Rust and called through dart:ffi",
       "Parity test checks 384-dimension vectors and ranking order against the site within 1e-3",
+      "Food & Drinks menu, free-delivery voucher and delivery-included pricing, carried through catalog.json",
+      "Tiered delivery pricing ported from the site: struck-through +50% below Rs 1,000",
+      "Manifest hardened in v1.2.3: no backups, no cleartext traffic, system CAs only",
       "Signed release APK verified by a script that checks the certificate, R8 and model checksum",
       "Launch video overlay runs under the first Flutter frame so the catalog is ready when it fades",
       "On-device index built from the same catalog.json the website serves",
-      "No interop codegen: the FFI boundary is a matched pair of Rust and Dart files",
     ],
     impact:
       "Offline semantic search on a handset, using the same embeddings and ranking as the live store.",
@@ -209,6 +215,8 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/shahzadp/DoL-by-Alex",
     highlights: [
       "Second full shell migration: Cordova to Capacitor to Flutter 3.47.7",
+      "Synced with upstream 0.5.13.6 and rebuilt the release APK",
+      "Public release with upstream attribution; CC BY-NC-SA 4.0, non-commercial",
       "Fixed export failing silently across four layers at once",
       "Re-encoded 18,593 PNGs to lossless WebP, cutting artwork 60.9% and the release APK 7.5 MB",
       "Measured every optimisation instead of assuming: lossy WebP was larger, so it was rejected",
@@ -224,11 +232,9 @@ export const projects: Project[] = [
     title: "4 Games by Alex",
     repo: "4GamesbyAlex",
     blurb:
-      "Four playable games in one Android app, including chess driven by the real Stockfish 19 engine.",
+      "Four playable games in one offline, ad-free Android app, including chess driven by the real Stockfish 19 engine and a native Horizon client.",
     description:
-      "A Jetpack Compose app bundling four small games together. The chess mode embeds the " +
-      "Stockfish 19 engine compiled to WebAssembly, runs it off the main thread in a worker, and " +
-      "supports playing the bot as well as hot seat, with an opening explorer and move history.",
+      "A Jetpack Compose app bundling four games together: chess against Stockfish 19 compiled to WebAssembly, running off the main thread in a worker, with hot seat, an opening explorer and a legal-move quiz mode; Flappy Bird; a Virtual Pet 3D rendered with three.js, with optional chat via a user-supplied API key stored on device; and Horizon, a native Android build of the open-source Minecraft Java client, staged into the APK at packaging time.",
     problem:
       "Embedding a real chess engine means WebAssembly has to load fast, think without freezing " +
       "the UI, and hand moves back to the Compose layer cleanly. Worker lifecycle and illegal " +
@@ -241,10 +247,14 @@ export const projects: Project[] = [
     highlights: [
       "Stockfish 19 lite packaged as a 1.7 MB WASM module inside the APK",
       "Worker based engine so the interface never blocks while the bot calculates",
-      "Fixed illegal move generation and worker lifecycle bugs found on device",
-      "R8 obfuscation and resource shrinking for release builds",
+      "Opening explorer, legal-move quiz mode and two-player hot seat",
+      "Horizon, the open-source Minecraft Java client, staged natively at packaging time; no Mojang assets ship in the repo or APK",
+      "Virtual Pet 3D renders with three.js; chat is optional and uses a key you supply, stored on device",
+      "Cburnett chess pieces (CC BY-SA 3.0) redrawn as bold outline figures",
+      "Signed APKs published on GitHub Releases; offline, ad-free, no account required",
     ],
-    impact: "Four games in one APK, with a genuine chess engine rather than a scripted bot.",
+    impact:
+      "Four games in one offline, ad-free APK, with a genuine chess engine and a native Minecraft client rather than scripted demos.",
   },
   {
     id: "p6",
@@ -269,9 +279,45 @@ export const projects: Project[] = [
       "42 Kotlin files split cleanly into a core engine and a Compose UI layer",
       "Separate gesture stage per layer type for transform, draw, text and tap select",
       "Project autosave and a native SAF export sheet",
-      "Background removal through cutout composition",
+      "Background removal with on-device MediaPipe segmentation; nothing leaves the phone",
+      "v1.0: first public release, signed APK on GitHub Releases",
     ],
     impact: "A complete non destructive editing pipeline in a single native app.",
+  },
+  {
+    id: "p7",
+    title: "Project Alice by Alex",
+    repo: "Project-Alice-Android-by-Alex",
+    blurb:
+      "Victoria 2, running natively on Android: the open-source Project Alice engine compiled for ARM64 with OpenGL ES 3.2.",
+    description:
+      "Project Alice is an open-source engine for Victoria 2. This is a native Android port: the " +
+      "same C++ code compiled for ARM64, drawn with OpenGL ES 3.2, with touch controls mapped to " +
+      "mouse and keyboard. It starts from the Android v0.6 port by Vitorio-Kuroski and reworks it " +
+      "for release: the port and its interface translated from Chinese to English, a Victoria II " +
+      "look with pop-type pie charts and column banners, and a signed public release. The original " +
+      "Victoria 2 game files are required and are not included.",
+    problem:
+      "The upstream Android port shipped with a Chinese-language interface and commercial fonts. " +
+      "Making it release-ready meant translating the whole UI to English, swapping the fonts for " +
+      "an OFL-licensed face, and giving the windows a Victoria II look, all without breaking a " +
+      "renderer that has no test harness for its UI.",
+    stack: ["C++", "Java", "OpenGL ES", "CMake"],
+    image: null,
+    featured: true,
+    status: "live",
+    repoUrl: "https://github.com/shahzadp/Project-Alice-Android-by-Alex",
+    highlights: [
+      "Forked from the Android v0.6 port (Vitorio-Kuroski/Project-Alice-mobile) and taken to a signed public release",
+      "Translated the port and its interface from Chinese to English",
+      "Victoria II-style UI: pie charts of population by stratum, six demographic charts in the population window, maroon column banners with gold rules",
+      "Replaced commercial Chinese fonts with Noto Serif SC (OFL)",
+      "Adaptive launcher icon generated from SVG; app renamed to Project Alice by Alex",
+      "Release signing via a project-local keystore, with keys and passwords kept out of the repo",
+      "Runs on a real device (Moto One Hyper, Android 11, Adreno 612); still a test version",
+    ],
+    impact:
+      "Victoria 2 runs natively on a phone: engine, renderer and UI, with the original game files you bring yourself.",
   },
 ];
 /* ==========================================================================
