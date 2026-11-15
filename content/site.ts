@@ -319,6 +319,70 @@ export const projects: Project[] = [
     impact:
       "Victoria 2 runs natively on a phone: engine, renderer and UI, with the original game files you bring yourself.",
   },
+  {
+    id: "p8",
+    title: "Alexyomi",
+    repo: "Alexyomi",
+    blurb:
+      "An AniYomi fork with the local library and backup stripped out, rebuilt entirely around MyAnimeList: sync, seasons, an in-app MPV player and a Movies tab.",
+    description:
+      "A MyAnimeList-centric anime app fork of AniYomi. It drops the local library and backup machinery entirely: your MAL list is the app, with two-way progress sync, seasonal lists, " +
+      "top and search, a MAL profile with logout, and Add-to-MAL from any entry. Watching an episode updates MAL in both directions, with a letter-for-letter identity check so it " +
+      "never links the wrong show; otherwise you get a picker. The player is in-app MPV with custom mpv.conf and input.conf, a Movies tab with an in-app browser and built-in " +
+      "ad blocker, and a saved-links manager with folder grouping, drag-and-drop and plain-text backup/restore. No local library, no backup, no other trackers, no AniYomi branding.",
+    problem:
+      "AniYomi is built for a local library that Alexyomi users never wanted. Every surface — list, search, tracking, playback, settings, crashes — had to be re-plumbed around " +
+      "MyAnimeList, which means tracking, identity matching, and the player had to agree on what an episode is without breaking on SAME-title shows.",
+    stack: ["Kotlin", "Jetpack Compose", "MPV", "MyAnimeList API", "SQLite"],
+    image: null,
+    featured: true,
+    status: "live",
+    repoUrl: "https://github.com/shahzadp/Alexyomi",
+    highlights: [
+      "Two-way MAL progress sync: watched episodes update app and MAL in both directions",
+      "Letter-for-letter title identity check before auto-linking, with a picker fallback when it can't be sure",
+      "No local library, no backup, no other trackers — MyAnimeList is the app",
+      "Movies tab with in-app browser, 87k-host ad blocker and fullscreen custom-view playback",
+      "Saved links manager: named links, folders with unique colours, long-press drag and drop",
+      "Plain-text backup/restore for saved links (line-scanned, no PDF internals)",
+      "Crash logs written to alexyomi_crash_logs.txt with verbose MAL sync events included",
+      "Single arm64 APK per release, stable RSA signing key, 19 releases shipped",
+    ],
+    impact:
+      "A MAL-first anime app that replaces a full local library with stable two-way sync, with every release signed by the same key.",
+  },
+  {
+    id: "p9",
+    title: "Alex App Manager",
+    repo: "Alex-App-Manager",
+    blurb:
+      "The Android app manager for the apps I publish: a bundled catalogue, live release detection over GitHub, and in-place downloads and installs with certificate verification.",
+    description:
+      "An Android app manager for everything I publish. The catalogue ships in the APK so fresh installs work offline; on launch the app checks the public release feed of each " +
+      "repository, skips routine API calls in favour of the unbilled releases feed, and only hits the releases API on an actual tag change. Each app shows its real icon fetched " +
+      "from a tiny release asset, or extracted from the APK. Installs and updates go through PackageInstaller with certificate verification, so an update is only ever " +
+      "installed when the signing key matches what is already installed — the manager refuses a mismatched signature rather than overwriting it.",
+    problem:
+      "Keeping half a dozen self-published Android apps updated used to mean opening GitHub for each one, hunting for the APK asset, sideloading it, and hoping the signature " +
+      "matched. The manager has to detect releases without hammering the unauthenticated API budget, verify every APK before it goes anywhere near the installer, and never " +
+      "overwrite a correctly-signed install with an imposter.",
+    stack: ["Kotlin", "Jetpack Compose", "Material 3 Expressive", "PackageInstaller"],
+    image: null,
+    featured: true,
+    status: "live",
+    repoUrl: "https://github.com/shahzadp/Alex-App-Manager",
+    highlights: [
+      "Bundled catalogue: fresh installs show the full list with no connection",
+      "Release feed via releases.atom with ETag caching and a 30-minute TTL; steady-state GitHub API usage is effectively zero",
+      "PackageInstaller-based install with certificate verification on every update",
+      "Icon refresh from a tiny release asset, falling back to extracting the APK's own launcher icon",
+      "Update flow that refuses a signature mismatch instead of breaking the install",
+      "Self-updates itself, and Alexyomi ships inside its catalogue from v0.2.9",
+      "Eight entries in the catalogue; 11 releases shipped, stable RSA-4096 key throughout",
+    ],
+    impact:
+      "The whole GitHub-to-phone pipeline in one app: detection, download, verify, install, update — for every app in the catalogue and the manager itself.",
+  },
 ];
 /* ==========================================================================
    EDUCATION + FREELANCE BLOCK
